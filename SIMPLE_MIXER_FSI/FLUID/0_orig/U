@@ -1,0 +1,78 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+  =========                 |
+  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
+   \\    /   O peration     | Website:  https://openfoam.org
+    \\  /    A nd           | Version:  7
+     \\/     M anipulation  |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       volVectorField;
+    location    "10";
+    object      U;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+dimensions      [0 1 -1 0 0 0 0];
+
+internalField   uniform (1 0 0);
+
+boundaryField
+{
+    backFixed
+    {
+        type            empty;
+    }
+    frontFixed
+    {
+        type            empty;
+    }
+    backRotating
+    {
+        type            empty;
+    }
+    bottom
+    {
+        type            noSlip;
+    }
+    left
+    {
+        type            fixedValue;
+        value           uniform (1 0 0);
+    }
+    right
+    {
+        type            zeroGradient;
+    }
+    top
+    {
+        type            noSlip;
+    }
+    rotCenter
+    {
+        type            noSlip;
+    }
+    fsi
+    {
+        type            noSlip;
+    }
+    frontRotating
+    {
+        type            empty;
+    }
+    AMI1
+    {
+        type            cyclicAMI;
+        value           uniform (1 0 0); 
+    }
+    AMI2
+    {
+        type            cyclicAMI;
+        value           uniform (1 0 0);
+    }
+}
+
+
+// ************************************************************************* //

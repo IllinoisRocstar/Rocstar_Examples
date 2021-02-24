@@ -1,0 +1,16 @@
+CouplingScheme = SolidFluidSPC
+SolidModule = clcxcsc
+FluidModule = rocrhopimple
+OutputModule = Rocout
+
+MaximumTime = 1
+AutoRestart = F
+
+CurrentTimeStep = 0.001
+
+OutputIntervalTime = 0.1
+
+MaxWallTime = 10000000
+
+ProfileDir = Rocman/Profiles
+

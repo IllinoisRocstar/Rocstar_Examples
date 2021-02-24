@@ -1,0 +1,5 @@
+#!/bin/bash
+cldrv=clcx_drv
+mpirun -np 20 ${cldrv} -i turbine_metric -p rocstar
+# to run by driver uncomment next line
+#${cldrv} -r test_srf_0000.cgns test_vol_0000.cgns -s amount_of_time_in_sec 

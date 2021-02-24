@@ -1,0 +1,198 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  4.1                                   |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      snappyHexMeshDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+// Which of the steps to run
+castellatedMesh false;
+snap            false;
+addLayers       true;
+
+geometry
+{   
+};
+
+// Settings for the castellatedMesh generation.
+castellatedMeshControls
+{
+
+    // Refinement parameters
+    // ~~~~~~~~~~~~~~~~~~~~~.
+    maxLocalCells 1000000;
+    maxGlobalCells 6000000;
+    minRefinementCells 0;
+    maxLoadUnbalance 0.10;
+    nCellsBetweenLevels 3;
+
+
+    // Explicit feature edge refinement
+    // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    features
+    (
+        //{
+           //file "spheres.eMesh";
+           //levels ((1 2));
+        //}
+    );
+
+    // Surface based refinement
+    // ~~~~~~~~~~~~~~~~~~~~~~~~
+
+    refinementSurfaces
+    {
+        sphere_p2.stl
+        {
+            level (2 2);
+						regions
+            {
+               spheres    { level (2 2); patchInfo { type wall; }}
+            }
+            
+        }
+    }
+    resolveFeatureAngle 30;
+
+
+    // Region-wise refinement
+    // ~~~~~~~~~~~~~~~~~~~~~~
+
+    refinementRegions
+    {
+    }
+
+    // Mesh selection
+    // ~~~~~~~~~~~~~~
+    locationInMesh (0 0 99);
+    allowFreeStandingZoneFaces false;
+}
+
+// Settings for the snapping.
+snapControls
+{
+    nSmoothPatch 12;
+    tolerance 1.5;
+    nSolveIter 150;
+    nRelaxIter 13;
+    nFeatureSnapIter 50;
+    implicitFeatureSnap false;
+    explicitFeatureSnap true;
+    multiRegionFeatureSnap false;
+}
+
+// Settings for the layer addition.
+addLayersControls
+{
+    relativeSizes false;
+    // - expansionRatio and finalLayerThickness (cell nearest internal mesh)
+    // - expansionRatio and firstLayerThickness (cell on surface)
+    // - overall thickness and firstLayerThickness
+    // - overall thickness and finalLayerThickness
+    expansionRatio 1.3;
+    //finalLayerThickness 0.3;
+    //firstLayerThickness 0.3;
+    thickness 0.020;
+    minThickness 0.001;
+    
+    layers
+    {
+        blade
+        {
+            nSurfaceLayers      4;
+            expansionRatio      1.3;
+	          thickness           0.015;
+            //finalLayerThickness 0.5;
+        //    minThickness        0.1;
+       	}
+       	blade_others
+        {
+            nSurfaceLayers      4;
+            expansionRatio      1.3;
+	          thickness           0.015;
+            //finalLayerThickness 0.5;
+        //    minThickness        0.1;
+       	}
+       	hub_to_blade
+        {
+            nSurfaceLayers      4;
+            expansionRatio      1.3;
+	          thickness           0.015;
+            //finalLayerThickness 0.5;
+        //    minThickness        0.1;
+       	}
+       	hub
+        {
+            nSurfaceLayers      4;
+            expansionRatio      1.3;
+	          thickness           0.015;
+            //finalLayerThickness 0.5;
+        //    minThickness        0.1;
+       	}
+       	
+    }
+    nGrow 0;
+    featureAngle 180;
+    slipFeatureAngle 30;
+    nRelaxIter 10;
+    nSmoothSurfaceNormals 3;
+    nSmoothNormals 3;
+    nSmoothThickness 10;
+    maxFaceThicknessRatio 0.5;
+    maxThicknessToMedialRatio 0.3;
+    minMedianAxisAngle 90;
+    nBufferCellsNoExtrude 0;
+    nLayerIter 40;
+    nRelaxedIter 4;
+    //additionalReporting true;
+}
+
+// Generic mesh quality settings. At any undoable phase these determine
+// where to undo.
+meshQualityControls
+{
+    maxNonOrtho 180;
+    maxBoundarySkewness 20;
+    maxInternalSkewness 4;
+    maxConcave 80;
+    minVol 1e-14;
+    minTetQuality 1e-14;
+    minArea -1;
+    minTwist 0.05;
+    minDeterminant 0.0001;
+    minFaceWeight 0.025;
+    minVolRatio 0.02;
+    minTriangleTwist -1;
+    //minVolCollapseRatio 0.5;
+
+    // Advanced
+    nSmoothScale 4;
+    errorReduction 0.75;
+    relaxed
+    {
+        maxNonOrtho 75;
+    }
+}
+writeFlags
+(
+    scalarLevels
+    layerSets
+    layerFields     // write volScalarField for layer coverage
+);
+// Advanced
+
+// Merge tolerance. Is fraction of overall bounding box of initial mesh.
+// Note: the write tolerance needs to be higher than this.
+mergeTolerance 1e-6;
+
+// ************************************************************************* //

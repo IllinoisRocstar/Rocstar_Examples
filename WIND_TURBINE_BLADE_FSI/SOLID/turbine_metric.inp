@@ -1,0 +1,32 @@
+**
+**   Structure: 1/3 wind turbine FSI model
+**   Test objective: test FSI capabilities of the CSC module 
+**                
+*HEADING
+Model: WINDTURBINE     Date: 08/11/2020
+*INCLUDE, INPUT=blade_v4.inp
+*BOUNDARY
+hub_interior,1,3
+*MATERIAL,NAME=GFRP
+*ELASTIC
+25E9,.38
+*DENSITY
+1.90E3
+*SOLID SECTION,MATERIAL=GFRP,ELSET=Solid
+*AMPLITUDE,NAME=A1
+0.,0.,1.E-4,1.
+1.1E-4,0.
+*STEP,INC=100000,NLGEOM
+*DYNAMIC,DIRECT
+5e-5, 10, 1e-6, 1e-4
+*DLOAD
+FSI, P1, 0.0
+*NODE PRINT,NSET=ALLNODES,FREQUENCY=1
+U
+*EL PRINT,ELSET=Solid,FREQUENCY=1
+S
+*NODE FILE
+U, RF
+*EL FILE
+E, S
+*END STEP

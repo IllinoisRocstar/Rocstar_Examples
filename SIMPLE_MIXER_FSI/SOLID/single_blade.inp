@@ -1,0 +1,29 @@
+**
+**   Test objective: test FSI capabilities of the CSC module 
+**                
+*HEADING
+Model: Single blade Date: 11/23/2020
+*INCLUDE, INPUT=single_blade_mesh.inp
+*BOUNDARY
+top,1,3
+bot,1,3
+*BOUNDARY
+symm,3,3
+*MATERIAL,NAME=EL
+*ELASTIC
+5e9,.3
+*DENSITY
+3.e3
+*SOLID SECTION,MATERIAL=EL,ELSET=EB1
+*STEP,INC=1000000,NLGEOM
+*DYNAMIC,DIRECT
+1E-3, 1.0e1, 1E-5,1.0E-1
+*DLOAD
+EB1,Centrif,100,0,0,0,0,0,1
+*DLOAD
+FSI, P1, 0
+*NODE FILE, FREQUENCY=1
+U, RF
+*EL FILE, FREQUENCY=1
+E, S
+*END STEP

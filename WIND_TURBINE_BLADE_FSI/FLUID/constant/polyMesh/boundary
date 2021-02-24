@@ -1,0 +1,95 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+  =========                 |
+  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
+   \\    /   O peration     | Website:  https://openfoam.org
+    \\  /    A nd           | Version:  7
+     \\/     M anipulation  |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       polyBoundaryMesh;
+    location    "1/polyMesh";
+    object      boundary;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+9
+(
+    blade
+    {
+        type            wall;
+        inGroups        List<word> 1(wall);
+        nFaces          33995;
+        startFace       1616407;
+    }
+    hub_to_blade
+    {
+        type            wall;
+        inGroups        List<word> 1(wall);
+        nFaces          4084;
+        startFace       1650402;
+    }
+    blade_others
+    {
+        type            wall;
+        inGroups        List<word> 1(wall);
+        nFaces          940;
+        startFace       1654486;
+    }
+    hub
+    {
+        type            wall;
+        inGroups        List<word> 1(wall);
+        nFaces          457;
+        startFace       1655426;
+    }
+    front
+    {
+        type            patch;
+        inGroups        List<word> 1(patch);
+        nFaces          1603;
+        startFace       1655883;
+    }
+    back
+    {
+        type            patch;
+        inGroups        List<word> 1(patch);
+        nFaces          973;
+        startFace       1657486;
+    }
+    AMI1
+    {
+        type            cyclicAMI;
+        neighbourPatch	AMI2;
+        matchTolerance  0.0001;
+        transform				rotational;
+        rotationAxis		(0 1 0);
+        rotationCentre	(0 0 0);
+        inGroups        List<word> 1(cyclicAMI);
+        nFaces          2709;
+        startFace       1658459;
+    }
+    AMI2
+    {
+        type            cyclicAMI;
+        neighbourPatch	AMI1;
+        matchTolerance  0.0001;
+        transform				rotational;
+        rotationAxis		(0 1 0);
+        rotationCentre	(0 0 0);
+        inGroups        List<word> 1(cyclicAMI);
+        nFaces          2709;
+        startFace       1661168;
+    }
+    end
+    {
+        type            patch;
+        inGroups        List<word> 1(patch);
+        nFaces          2492;
+        startFace       1663877;
+    }
+)
+
+// ************************************************************************* //

@@ -1,0 +1,93 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v2006                                 |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       pointVectorField;
+    location    "0";
+    object      pointDisplacement;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+dimensions      [0 1 0 0 0 0 0];
+
+
+internalField   uniform (0 0 0);
+
+boundaryField
+{
+   #includeEtc "caseDicts/setConstraintTypes"
+
+    backFixed
+    {
+        type            empty;
+    }
+    frontFixed
+    {
+        type            empty;
+    }
+
+    bottom
+    {
+        type            fixedValue;
+        value           uniform (0 0 0);
+    }
+    left
+    {
+        type            fixedValue;
+        value           uniform (0 0 0);
+    }
+    right
+    {
+        type            fixedValue;
+        value           uniform (0 0 0);
+    }
+    top
+    {
+        type            fixedValue;
+        value           uniform (0 0 0);
+    }
+
+    backRotating
+    {
+        type            empty;
+    }
+    frontRotating
+    {
+        type            empty;
+    }
+
+    rotCenter
+    {
+        type            fixedValue;
+        value           uniform (0 0 0);
+    }
+
+    fsi
+    {
+        type            rocstarFSI;
+        value           uniform (0 0 0);
+    }
+
+    AMI1
+    {
+        patchType       cyclicAMI;
+        type            fixedValue;
+        value           uniform (0 0 0);
+    }
+    AMI2
+    {
+        patchType       cyclicAMI;
+        type            fixedValue;
+        value           uniform (0 0 0);
+    }
+}
+
+
+// ************************************************************************* //

@@ -1,0 +1,33 @@
+**
+**   Structure: simple beam in cross flow
+**   Test objective: test FSI capabilities of the CSC module 
+**                
+*HEADING
+Model: Beam in cross flow  Date: 08/04/2020
+*INCLUDE, INPUT=mesh-hex.inp
+*BOUNDARY
+fixed,1,3
+*BOUNDARY
+symm,2,2
+*MATERIAL,NAME=EL
+*ELASTIC
+2e6,.3
+*DENSITY
+3.e3
+*SOLID SECTION,MATERIAL=EL,ELSET=EB1
+*STEP,INC=1000000,NLGEOM
+*DYNAMIC,DIRECT
+1E-3,1.0e1,1E-4,1.0E-1
+*DLOAD
+FSI, P1, 0
+*NODE PRINT,NSET=ALLNODES,FREQUENCY=10
+U
+*EL PRINT,ELSET=Solid,FREQUENCY=10
+S
+*NODE FILE
+U, RF
+*EL FILE
+E, S
+*END STEP
+
+
